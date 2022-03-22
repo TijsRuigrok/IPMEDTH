@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class BloodSugarManager : MonoBehaviour
 {
-    [SerializeField] private TMP_Text bloodSugarText;
-
+    [SerializeField] private BloodSugarText bloodSugarText;
+    
+    [SerializeField] private float insulinDose = 2f;
+    [SerializeField] private float glucagonDose = 2f;
+    
     private float bloodSugar = 4f;
 
     void Start()
     {
-        UpdateBloodSugarText();
+        bloodSugarText.UpdateBloodSugarText(bloodSugar);
         StartCoroutine(StartEvent());
     }
 
@@ -27,24 +29,18 @@ public class BloodSugarManager : MonoBehaviour
     private void AddBloodSugarEvent()
     {
         bloodSugar += Random.Range(1, 3);
-        UpdateBloodSugarText();
-    }
-
-    private void UpdateBloodSugarText()
-    {
-        bloodSugarText.text = bloodSugar.ToString();
+        bloodSugarText.UpdateBloodSugarText(bloodSugar);
     }
 
     public void AddInsulin()
     {
-        if(bloodSugar >= 1) bloodSugar -= 1;
-        UpdateBloodSugarText();
-    }
-    
-    public void AddGlucagon()
-    {
-        bloodSugar += 1;
-        UpdateBloodSugarText();
+        if(bloodSugar >= insulinDose) bloodSugar -= insulinDose;
+        bloodSugarText.UpdateBloodSugarText(bloodSugar);
     }
 
+    public void AddGlucagon()
+    {
+        bloodSugar += glucagonDose;
+        bloodSugarText.UpdateBloodSugarText(bloodSugar);
+    }
 }
