@@ -8,6 +8,8 @@ public class BloodSugarManager : MonoBehaviour
     
     [SerializeField] private float insulinDose = 2f;
     [SerializeField] private float glucagonDose = 2f;
+
+    [SerializeField] private SymptomManager symptomManager;
     
     private float bloodSugar = 4f;
 
@@ -30,17 +32,20 @@ public class BloodSugarManager : MonoBehaviour
     {
         bloodSugar += Random.Range(1, 3);
         bloodSugarText.UpdateBloodSugarText(bloodSugar);
+        symptomManager.UpdateActiveSymptoms(bloodSugar);
     }
 
     public void AddInsulin()
     {
         if(bloodSugar >= insulinDose) bloodSugar -= insulinDose;
         bloodSugarText.UpdateBloodSugarText(bloodSugar);
+        symptomManager.UpdateActiveSymptoms(bloodSugar);
     }
 
     public void AddGlucagon()
     {
         bloodSugar += glucagonDose;
         bloodSugarText.UpdateBloodSugarText(bloodSugar);
+        symptomManager.UpdateActiveSymptoms(bloodSugar);
     }
 }

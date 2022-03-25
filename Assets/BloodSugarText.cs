@@ -8,7 +8,11 @@ public class BloodSugarText : MonoBehaviour
     [SerializeField] private TMP_Text bloodSugarText;
     [SerializeField] private TMP_Text bloodSugarDifferenceText;
 
-    float bloodSugar;
+    [SerializeField] private Color red = new Color(200, 0, 0);
+    [SerializeField] private Color green = new Color(0, 200, 0);
+
+    private float bloodSugar;
+
 
     public void UpdateBloodSugarText(float updatedBloodSugar)
     {
@@ -23,10 +27,11 @@ public class BloodSugarText : MonoBehaviour
 
         while(tempBloodSugar != updatedBloodSugar)
         {
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.1f);
 
             if (updatedBloodSugar > tempBloodSugar) tempBloodSugar += 1;
             else if (updatedBloodSugar < tempBloodSugar) tempBloodSugar -= 1;
+            
             bloodSugarText.text = tempBloodSugar.ToString();
         }
     }
@@ -34,7 +39,15 @@ public class BloodSugarText : MonoBehaviour
     private void ShowDifference(float updatedBloodSugar)
     {
         float difference = updatedBloodSugar - bloodSugar;
-        if(difference > 0) bloodSugarDifferenceText.text = "+" + difference.ToString();
-        else bloodSugarDifferenceText.text = difference.ToString();
+        if (difference > 0)
+        {
+            bloodSugarDifferenceText.text = "+" + difference.ToString();
+            bloodSugarDifferenceText.color = green;
+        }
+        else
+        {
+            bloodSugarDifferenceText.text = difference.ToString();
+            bloodSugarDifferenceText.color = red;
+        }
     }
 }
