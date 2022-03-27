@@ -5,47 +5,67 @@ using UnityEngine;
 public class BloodSugarManager : MonoBehaviour
 {
     [SerializeField] private BloodSugarText bloodSugarText;
-    
-    [SerializeField] private float insulinDose = 2f;
-    [SerializeField] private float glucagonDose = 2f;
-
     [SerializeField] private SymptomManager symptomManager;
+    [SerializeField] private BloodSugarGauge bloodSugarGauge;
     
-    private float bloodSugar = 4f;
+    public float bloodSugar = 6f;
+    private float insulinLevel = 0f;
+    private float glucagonLevel = 0f;
+    private float hormoneImpact = 0.001f;
 
     void Start()
     {
         bloodSugarText.UpdateBloodSugarText(bloodSugar);
-        StartCoroutine(StartEvent());
+        symptomManager.UpdateActiveSymptoms(bloodSugar);
+        bloodSugarGauge.UpdatePosition(bloodSugar);
+        /*StartCoroutine(StartEvent());*/
+        StartCoroutine(BloodSugarTrendDownwards());
+    }
+
+    private void Update()
+    {
+        bloodSugar += (glucagonLevel - insulinLevel) * hormoneImpact;
+        if (bloodSugar < 0) bloodSugar = 0;
+    }
+
+    public void UpdateGlucagonLevel(float newGlucagonLevel)
+    {
+        glucagonLevel = newGlucagonLevel;
+    }
+    
+    public void UpdateInsulinLevel(float newInsulinLevel)
+    {
+        insulinLevel = newInsulinLevel;
     }
 
     private IEnumerator StartEvent()
     {
         while(true)
         {
-            yield return new WaitForSeconds(Random.Range(3, 6));
+            yield return new WaitForSeconds(Random.Range(8, 8));
             AddBloodSugarEvent();
         }
     }
 
     private void AddBloodSugarEvent()
     {
-        bloodSugar += Random.Range(1, 3);
+        bloodSugar += Random.Range(5, 10);
+        if (bloodSugar > 30) bloodSugar = 30;
+
         bloodSugarText.UpdateBloodSugarText(bloodSugar);
         symptomManager.UpdateActiveSymptoms(bloodSugar);
+        bloodSugarGauge.UpdatePosition(bloodSugar);
     }
 
-    public void AddInsulin()
+    private IEnumerator BloodSugarTrendDownwards()
     {
-        if(bloodSugar >= insulinDose) bloodSugar -= insulinDose;
-        bloodSugarText.UpdateBloodSugarText(bloodSugar);
-        symptomManager.UpdateActiveSymptoms(bloodSugar);
-    }
-
-    public void AddGlucagon()
-    {
-        bloodSugar += glucagonDose;
-        bloodSugarText.UpdateBloodSugarText(bloodSugar);
-        symptomManager.UpdateActiveSymptoms(bloodSugar);
+        while(true)
+        {
+            yield return new WaitForSeconds(1f);
+            bloodSugar -= 0.25f;
+            bloodSugarText.UpdateBloodSugarText(bloodSugar);
+            symptomManager.UpdateActiveSymptoms(bloodSugar);
+            bloodSugarGauge.UpdatePosition(bloodSugar);
+        }
     }
 }

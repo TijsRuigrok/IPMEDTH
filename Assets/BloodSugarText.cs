@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -18,7 +19,9 @@ public class BloodSugarText : MonoBehaviour
     {
         bloodSugar = float.Parse(bloodSugarText.text);
         ShowDifference(updatedBloodSugar);
-        StartCoroutine(UpdateBloodSugarTextAnimation(updatedBloodSugar));
+        /*StartCoroutine(UpdateBloodSugarTextAnimation(updatedBloodSugar));*/
+        
+        bloodSugarText.text = Math.Round(updatedBloodSugar, 2).ToString();
     }
 
     private IEnumerator UpdateBloodSugarTextAnimation(float updatedBloodSugar)
@@ -41,12 +44,12 @@ public class BloodSugarText : MonoBehaviour
         float difference = updatedBloodSugar - bloodSugar;
         if (difference > 0)
         {
-            bloodSugarDifferenceText.text = "+" + difference.ToString();
+            bloodSugarDifferenceText.text = "+" + Math.Round(difference, 2).ToString();
             bloodSugarDifferenceText.color = green;
         }
         else
         {
-            bloodSugarDifferenceText.text = difference.ToString();
+            bloodSugarDifferenceText.text = Math.Round(difference, 2).ToString();
             bloodSugarDifferenceText.color = red;
         }
     }
