@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d45a83a63ff92e40877d313a5dca849, type: 3}
   m_Name: OrganFailure
   m_EditorClassIdentifier: 
-  symptonName: Organ failure
+  symptonName: Orgaanfalen
   bloodSugarLevel: 40
   image: {fileID: 21300000, guid: 87a7490b92db6f94e89f273538be56f7, type: 3}

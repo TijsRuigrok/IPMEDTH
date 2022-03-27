@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d45a83a63ff92e40877d313a5dca849, type: 3}
   m_Name: Blindness
   m_EditorClassIdentifier: 
-  symptonName: Blindness
+  symptonName: Blind
   bloodSugarLevel: 30
   image: {fileID: 21300000, guid: 4c76fe07412ebb240aac0d110d40b3ad, type: 3}

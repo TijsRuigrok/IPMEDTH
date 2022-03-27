@@ -18,13 +18,13 @@ public class BloodSugarText : MonoBehaviour
     public void UpdateBloodSugarText(float updatedBloodSugar)
     {
         bloodSugar = float.Parse(bloodSugarText.text);
-        ShowDifference(updatedBloodSugar);
+        /*ShowDifference(updatedBloodSugar);*/
         /*StartCoroutine(UpdateBloodSugarTextAnimation(updatedBloodSugar));*/
         
-        bloodSugarText.text = Math.Round(updatedBloodSugar, 2).ToString();
+        bloodSugarText.text = Math.Round(updatedBloodSugar, 1).ToString();
     }
 
-    private IEnumerator UpdateBloodSugarTextAnimation(float updatedBloodSugar)
+   /* private IEnumerator UpdateBloodSugarTextAnimation(float updatedBloodSugar)
     {
         float tempBloodSugar = bloodSugar;
 
@@ -37,19 +37,19 @@ public class BloodSugarText : MonoBehaviour
             
             bloodSugarText.text = tempBloodSugar.ToString();
         }
-    }
+    }*/
 
     private void ShowDifference(float updatedBloodSugar)
     {
         float difference = updatedBloodSugar - bloodSugar;
         if (difference > 0)
         {
-            bloodSugarDifferenceText.text = "+" + Math.Round(difference, 2).ToString();
+            bloodSugarDifferenceText.text = "+" + Math.Round(difference, 1).ToString();
             bloodSugarDifferenceText.color = green;
         }
         else
         {
-            bloodSugarDifferenceText.text = Math.Round(difference, 2).ToString();
+            bloodSugarDifferenceText.text = Math.Round(difference, 1).ToString();
             bloodSugarDifferenceText.color = red;
         }
     }

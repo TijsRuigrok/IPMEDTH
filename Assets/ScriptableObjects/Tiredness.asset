@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d45a83a63ff92e40877d313a5dca849, type: 3}
   m_Name: Tiredness
   m_EditorClassIdentifier: 
-  symptonName: Tiredness
+  symptonName: Moe
   bloodSugarLevel: 11
   image: {fileID: 21300000, guid: db7efdab1aeed984593608ba36f48305, type: 3}

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d45a83a63ff92e40877d313a5dca849, type: 3}
   m_Name: Nausea
   m_EditorClassIdentifier: 
-  symptonName: Nausea
+  symptonName: Misselijk
   bloodSugarLevel: 17
   image: {fileID: 21300000, guid: 06d630e41aa1d424da2df2c3625f125b, type: 3}

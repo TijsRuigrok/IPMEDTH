@@ -17,7 +17,8 @@ public class SymptomManager : MonoBehaviour
 
         foreach (Symptom symptom in symptoms)
         {
-            if (currentBloodSugar >= symptom.bloodSugarLevel)
+            if ((symptom.bloodSugarLevel >= 8) && (currentBloodSugar >= symptom.bloodSugarLevel) || 
+                (symptom.bloodSugarLevel <= 4) && (currentBloodSugar <= symptom.bloodSugarLevel))
             {
                 SymptomListItem newListItem = Instantiate(listItem);
                 newListItem.UpdateNameText(symptom.symptonName);
@@ -25,7 +26,7 @@ public class SymptomManager : MonoBehaviour
                 personImage.sprite = symptom.image;
             }
 
-            else if (currentBloodSugar <= 11) personImage.sprite = healthyPersonImage;
+            else if (currentBloodSugar <= 11 && currentBloodSugar >= 4) personImage.sprite = healthyPersonImage;
         }
     }
 }
