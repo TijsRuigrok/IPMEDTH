@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,12 +9,17 @@ public class BloodSugarManager : MonoBehaviour
     [SerializeField] private SymptomManager symptomManager;
     [SerializeField] private BloodSugarGauge bloodSugarGauge;
 
-    public float bloodSugar = 6f;
+    [SerializeField] private Apple applePrefab;
+    [SerializeField] private Transform canvasTransform;
+
+    [SerializeField] private Transform appleSpawnPoint;
+
+    public float bloodSugar = 17f;
     private float insulinLevel = 0f;
     private float glucagonLevel = 0f;
     private float glucagonEventLevel = 0f;
-    private float insulinBaseLevel = 0.2f;
-    private float hormoneImpact = 0.001f;
+    private float insulinBaseLevel = 0.5f;
+    private float hormoneImpact = 0.015f;
 
     void Start()
     {
@@ -21,10 +27,9 @@ public class BloodSugarManager : MonoBehaviour
         symptomManager.UpdateActiveSymptoms(bloodSugar);
         bloodSugarGauge.UpdatePosition(bloodSugar);
         StartCoroutine(GlucagonEvent());
-        /*StartCoroutine(BloodSugarTrendDownwards());*/
     }
 
-    private void Update()
+    void FixedUpdate()
     {
         bloodSugar += ((glucagonLevel + glucagonEventLevel) - (insulinLevel + insulinBaseLevel)) * hormoneImpact;
         if (bloodSugar < 0f) bloodSugar = 0f;
@@ -50,20 +55,17 @@ public class BloodSugarManager : MonoBehaviour
         while(true)
         {
             yield return new WaitForSeconds(8);
-            glucagonEventLevel += Random.Range(0.7f, 1f);
-            insulinBaseLevel = 0f;
-            yield return new WaitForSeconds(6);
-            glucagonEventLevel = 0f;
-            insulinBaseLevel = 0.2f;
+            Apple newApple = Instantiate(applePrefab);
+            newApple.transform.SetParent(canvasTransform);
+            newApple.transform.position = appleSpawnPoint.position;
+            float randomNumber = UnityEngine.Random.Range(6f, 8f);
+            newApple.UpdateText($"+{Math.Round(randomNumber, 1) }");
+            /*glucagonEventLevel += Random.Range(0.7f, 1f);*/
+            /*insulinBaseLevel = 0f;*/
+            yield return new WaitForSeconds(2);
+            bloodSugar += randomNumber;
+            /*glucagonEventLevel = 0f;
+            insulinBaseLevel = 0.2f;*/
         }
     }
-
-    /*private IEnumerator BloodSugarTrendDownwards()
-    {
-        while(true)
-        {
-            yield return new WaitForSeconds(1f);
-            bloodSugar -= 0.25f;
-        }
-    }*/
 }

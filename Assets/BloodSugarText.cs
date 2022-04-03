@@ -17,7 +17,7 @@ public class BloodSugarText : MonoBehaviour
 
     public void UpdateBloodSugarText(float updatedBloodSugar)
     {
-        bloodSugar = float.Parse(bloodSugarText.text);
+        /*bloodSugar = float.Parse(bloodSugarText.text);*/
         /*ShowDifference(updatedBloodSugar);*/
         /*StartCoroutine(UpdateBloodSugarTextAnimation(updatedBloodSugar));*/
         
